@@ -1,21 +1,22 @@
-.card {
+  .card {
     width: 225px;
-    min-height: 350px;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column; /* Размещаем элементы в колонку */
-    border-radius: 4px;
+    border-radius: 30px;
     transition: 0.2s;
     position: relative;
+    background-color: #BFDBFE;
   }
-  
+
   /* При наведении на карточку - меняем цвет тени */
   .card:hover {
-    box-shadow: 4px 8px 16px rgba(255, 102, 51, 0.2);
+  box-shadow: 4px 8px 16px rgba(15, 0, 74, 0.3);
   }
   
   .card__top {
-    flex: 0 0 220px; /* Задаем высоту 220px, запрещаем расширение и сужение по высоте */
+    flex: 0 0 180px; /* Задаем высоту 220px, запрещаем расширение и сужение по высоте */
     position: relative;
     overflow: hidden; /* Скрываем, что выходит за пределы */
   }
@@ -41,100 +42,67 @@
   .card__image:hover > img {
     transform: scale(1.1);
   }
-  
-  /* Размещаем скидку на товар относительно изображения */
-  .card__label {
-    padding: 4px 8px;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: #ff6633;
-    border-radius: 4px;
-    font-weight: 400;
-    font-size: 16px;
-    color: #fff;
-  }
-  
+    
   .card__bottom {
     display: flex;
     flex-direction: column;
     flex: 1 0 auto; /* Занимаем всю оставшуюся высоту карточки */
-    padding: 10px;
+    padding: 5px;
   }
   
-  .card__prices {
-    display: flex;
-    margin-bottom: 10px;
-    flex: 0 0 50%; /* Размещаем цены равномерно в две колонки */
+  .product_title{
+    font-style: oblique;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 200;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: rgba(78, 78, 78)
   }
-  
-  .card__price::after {
-    content: "₽";
-    margin-left: 4px;
-    position: relative;
-  }
-  
-  .card__price--discount {
-    font-weight: 700;
-    font-size: 19px;
-    color: #414141;
-    display: flex;
-    flex-wrap: wrap-reverse;
-  }
-  
-  .card__price--discount::before {
-    content: "Со скидкой";
-    font-weight: 400;
-    font-size: 13px;
-    color: #bfbfbf;
-  }
-  
-  .card__price--common {
-    font-weight: 400;
-    font-size: 17px;
-    color: #606060;
-    display: flex;
-    flex-wrap: wrap-reverse;
-    justify-content: flex-end;
-  }
-  
-  .card__price--common::before {
-    content: "Обычная";
-    font-weight: 400;
-    font-size: 13px;
-    color: #bfbfbf;
-  }
-  
-  .card__title {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 150%;
-    color: #414141;
-  }
-  
-  .card__title:hover {
-    color: #ff6633;
-  }
-  
+ 
   .card__add {
     display: block;
-    width: 100%;
+    outline: 0;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding: 9px 22px;
+    font-size: 18px;
+    height: 40px;
     font-weight: 400;
-    font-size: 17px;
-    color: #70c05b;
-    padding: 10px;
+    color: #fff;
     text-align: center;
-    border: 1px solid #70c05b;
-    border-radius: 4px;
-    cursor: pointer; /* Меняем курсор при наведении */
-    transition: 0.2s;
-    margin-top: auto; /* Прижимаем кнопку к низу карточки */
+    line-height: normal;
+    background: linear-gradient(90deg,#5522fa 0,#0074e4 100%);
+    border-radius: 50px;
+    transition: color .2s ease,background-color .2s ease,box-shadow .2s ease;
   }
   
   .card__add:hover {
-    border: 1px solid #ff6633;
-    background-color: #ff6633;
+    box-shadow: 0 0 0 0.15rem #5ceace;
+  }
+
+  input[type="text"]{
+    display: none;
+    outline: 0;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding: 9px 22px;
+    font-size: 18px;
+    height: 20px;
+    font-weight: 400;
     color: #fff;
+    text-align: center;
+    line-height: normal;
+    background: linear-gradient(90deg,#5522fa 0,#0074e4 100%);
+    border-radius: 50px;
+    transition: color .2s ease,background-color .2s ease,box-shadow .2s ease;
+  }
+  input[type="text"]:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
   }
