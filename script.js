@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
             button.style.display = 'none';
             // Показываем поле ввода
             inputField.style.display = 'block';
+            // Устанавливаем значение 1 в поле ввода
+            inputField.value = 1;
             // Устанавливаем фокус на поле ввода
             inputField.focus();
         });
