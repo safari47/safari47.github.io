@@ -1,22 +1,22 @@
 // Ждем загрузки всего контента на странице
 document.addEventListener('DOMContentLoaded', () => {
-    // Находим все кнопки "Редактировать"
-    const editButtons = document.querySelectorAll('.card__add');
+    // Находим все кнопки "В корзину"
+    const addButtons = document.querySelectorAll('.card__add');
     
     // Для каждой кнопки добавляем обработчик события click
-    editButtons.forEach(button => {
+    addButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Находим родительский элемент карточки товара
-            const card = button.parentElement;
+            const card = button.closest('.card');
             // Находим поле ввода внутри этой карточки
             const inputField = card.querySelector('.input__order');
 
-            // Скрываем кнопку "Редактировать"
+            // Скрываем кнопку "В корзину"
             button.style.display = 'none';
             // Показываем поле ввода
             inputField.style.display = 'block';
             // Устанавливаем фокус на поле ввода
-            
+            inputField.focus();
         });
     });
 });
