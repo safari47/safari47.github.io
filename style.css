@@ -1,5 +1,6 @@
+
 body {
-  background-image: url('back_body.jpg'); /* Путь к вашему фоновому изображению */
+  background-image: url('Image/back_body.jpg'); /* Путь к вашему фоновому изображению */
   background-size: cover; /* Покрывает весь экран */
   background-repeat: no-repeat; /* Не повторяет изображение */
   background-attachment: fixed; /* Фиксирует изображение при скроллинге */

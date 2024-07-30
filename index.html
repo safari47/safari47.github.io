@@ -1,71 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Vegetable Delivery</title>
 </head>
-
 <body>
-<div class="cards">
-  <!-- Карточка товара -->
-  <div class="card">
-      <!-- Верхняя часть -->
-      <div class="card__top">
-        <!-- Изображение-ссылка товара -->
-        <a href="#" class="card__image">
-          <img src="1.png" alt="Картофель"/>
-        </a>
-      </div>
-      <!-- Нижняя часть -->
-      <div class="card__bottom">
-        <div class="product_title">
-          Картофель
-        </div>
-        <!-- Кнопка добавить в корзину -->
-        <button class="card__add">В корзину</button>
-        <input type="text" class="input__order" inputmode="numeric" placeholder="Введите кол-во" style="display: none;">
-      </div>
-  </div>
-  <div class="card">
-    <!-- Верхняя часть -->
-    <div class="card__top">
-      <!-- Изображение-ссылка товара -->
-      <a href="#" class="card__image">
-        <img src="1.png" alt="Картофель черри"/>
-      </a>
-    </div>
-    <!-- Нижняя часть -->
-    <div class="card__bottom">
-      <div class="product_title">
-        Картофель черри
-      </div>
-      <!-- Кнопка добавить в корзину -->
-      <button class="card__add">В корзину</button>
-      <input type="text" class="input__order" inputmode="numeric" placeholder="Введите кол-во" style="display: none;">
-    </div>
-  </div>
-  <div class="card">
-    <!-- Верхняя часть -->
-    <div class="card__top">
-      <!-- Изображение-ссылка товара -->
-      <a href="#" class="card__image">
-        <img src="1.png" alt="Картофель дольки"/>
-      </a>
-    </div>
-    <!-- Нижняя часть -->
-    <div class="card__bottom">
-      <div class="product_title">
-        Картофель дольки
-      </div>
-      <!-- Кнопка добавить в корзину -->
-      <button class="card__add">В корзину</button>
-      <input type="text" class="input__order" inputmode="numeric" placeholder="Введите кол-во" style="display: none;">
-    </div>
-  </div>
+<div class="cards" id="product_new">
+    <!-- Карточки будут добавлены здесь динамически -->
 </div>
+<script src="add_product.js"></script>
 <script src="script.js"></script>
 
 </body>
