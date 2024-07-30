@@ -1,6 +1,6 @@
 
 body {
-  background-image: url('Image/back_body.jpg'); /* Путь к вашему фоновому изображению */
+  background-image: url('./Image/back_body.jpg'); /* Путь к вашему фоновому изображению */
   background-size: cover; /* Покрывает весь экран */
   background-repeat: no-repeat; /* Не повторяет изображение */
   background-attachment: fixed; /* Фиксирует изображение при скроллинге */
@@ -12,9 +12,9 @@ body {
 .cards {
   display: grid;
   /* Автоматически заполняем на всю ширину grid-контейнера */
-  grid-template-columns: repeat(auto-fill, 225px);
+  grid-template-columns: repeat(auto-fill, 180px);
   width: 100%;
-  max-width: 1000px; /* Ширина grid-контейнера */
+  max-width: 400px; /* Ширина grid-контейнера */
   justify-content: center;
   justify-items: center; /* Размещаем карточку по центру */
   column-gap: 30px; /* Отступ между колонками */
@@ -23,7 +23,7 @@ body {
 }
 
 .card {
-  width: 225px;
+  width: 180px;
   min-height: 200px;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
   display: flex;
