@@ -1,5 +1,7 @@
+// Ждем загрузки всего контента на странице
 document.addEventListener('DOMContentLoaded', () => {
-    const productContainer = document.getElementById('product_new');
+    const newProductContainer = document.getElementById('product_new');
+    const oldProductContainer = document.getElementById('product_old');
 
     // Загружаем данные о продуктах из файла JSON
     fetch('products.json')
@@ -50,13 +52,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.appendChild(cardTop);
                 card.appendChild(cardBottom);
 
-                // Добавляем карточку в контейнер
-                productContainer.appendChild(card);
+                // Выбираем правильный контейнер и добавляем карточку
+                if (product.id === 1) {
+                    newProductContainer.appendChild(card);
+                } else if (product.id === 2) {
+                    oldProductContainer.appendChild(card);
+                }
 
                 // Добавляем обработчик события для кнопки "В корзину"
                 addButton.addEventListener('click', () => {
                     addButton.style.display = 'none';
                     inputOrder.style.display = 'block';
+                    inputOrder.value = 1; // Устанавливаем значение 1 в поле ввода
+
+                    // Добавляем обработчик события для изменения значения поля ввода
+                    inputOrder.addEventListener('input', () => {
+                        // Если значение поля ввода 0, скрываем его и показываем кнопку "В корзину"
+                        if (inputOrder.value === '0') {
+                            inputOrder.style.display = 'none';
+                            addButton.style.display = 'block';
+                        }
+                    });
                 });
             });
         })

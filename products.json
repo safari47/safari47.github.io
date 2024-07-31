@@ -1,25 +1,31 @@
 [
     {
+      "id": 1,
       "title": "Лук красный",
       "imageUrl": "./Image/1.png"
     },
     {
+      "id": 2,
       "title": "Чеснок",
       "imageUrl": "./Image/2.png"
     },
     {
+      "id": 1,
       "title": "Свекла",
       "imageUrl": "./Image/3.png"
     },
     {
+      "id": 1,
       "title": "Морковь",
       "imageUrl": "./Image/4.png"
     },
     {
-      "title": "Картофельные дольки",
+      "id": 1,
+      "title": "Дольки",
       "imageUrl": "./Image/5.png"
     },
     {
+      "id": 1,
       "title": "Чеснок",
       "imageUrl": "./Image/6.png"
     }
