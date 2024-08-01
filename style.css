@@ -1,17 +1,20 @@
-
+html, body {
+  margin: 0; /* Удаляем отступы по умолчанию */
+}
 body {
   background-image: url('./Image/back_body.jpg'); /* Путь к вашему фоновому изображению */
   background-size: cover; /* Покрывает весь экран */
   background-repeat: no-repeat; /* Не повторяет изображение */
   background-attachment: fixed; /* Фиксирует изображение при скроллинге */
   background-position: center; /* Выравнивает изображение по центру */
-  display:grid;
+  display:flex;
   justify-content: center;
+  align-items: center;
 }
 h1 {
   position: relative;
   padding: 0;
-  margin: 0;
+  margin-left: 15px;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 300;
   font-size: 40px;
@@ -20,6 +23,7 @@ h1 {
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
   margin-bottom: 20px;
+  text-align: left;
 }
 
 h1 span {
