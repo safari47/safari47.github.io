@@ -131,8 +131,7 @@ h1 em {
   font-style: normal;
   text-align: center;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 24px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 200;
   margin-bottom: 5px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -146,7 +145,7 @@ h1 em {
   box-shadow: none;
   cursor: pointer;
   padding: 9px 22px;
-  font-size: 18px;
+  font-size: 16px;
   height: 40px;
   font-weight: 400;
   color: #fff;
