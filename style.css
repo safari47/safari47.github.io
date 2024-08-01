@@ -1,5 +1,6 @@
 html, body {
   margin: 0; /* Удаляем отступы по умолчанию */
+  padding: 0;
 }
 body {
   background-image: url('./Image/back_body.jpg'); /* Путь к вашему фоновому изображению */
@@ -59,8 +60,8 @@ h1 em {
   left: 0;
   bottom: 2px;
   height: 1px;
-  width: 100%;
-  max-width: 100%;
+  width: 50%;
+  max-width: 90%;
   background-color: #ffffff;
 }
 
@@ -68,14 +69,14 @@ h1 em {
   max-width: 1200px;
   display: flex;
   flex-wrap: wrap; /* Карточки занимают новую строку, когда нет места в текущей */
-  justify-content: flex-start; /* Карточки выравниваются по левому краю */
-  gap: 15px; /* Отступы между карточками */
+  justify-content:center; /* Карточки выравниваются по левому краю */
+  gap: 20px; /* Отступы между карточками */
   padding: 10px; /* Отступы внутри контейнера */
   box-sizing: border-box; /* Включаем padding и border в ширину и высоту элементов */
 }
 
 .card {
-  flex: 0 0 160px; /* Карточки фиксированной ширины 160px и не растягиваются */
+  flex: 0 0 175px; /* Карточки фиксированной ширины 160px и не растягиваются */
   min-height: 160px;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
   display: flex;
