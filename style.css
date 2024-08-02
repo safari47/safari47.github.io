@@ -76,7 +76,7 @@ h1 em {
 }
 
 .card {
-  flex: 0 0 175px; /* Карточки фиксированной ширины 160px и не растягиваются */
+  flex: 0 0 175px; /* Карточки фиксированной ширины и не растягиваются */
   min-height: 160px;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -195,7 +195,7 @@ h1 em {
 
 }
 .container__order {
-  max-width: 100%;
+  max-width: 95%;
   margin: 0 auto;
   background-color: #BFDBFE;
   background-color: rgba(255, 255, 255, 0.25);
@@ -215,20 +215,17 @@ h1 em {
   color: #fff;
 }
 
-.edit {
-  color: #fff;
-  margin-right: 20px;
-}
-
 .order-item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
   margin: 20px;
+  align-items: center;
+  border-color: ;
 }
 
 .order-item img {
-  width: 40px;
+  width: 50px;
   height: 40px;
   margin-right: 10px;
 }
@@ -247,7 +244,7 @@ h1 em {
   border: none;
   box-shadow: none;
   cursor: pointer;
-  width: 30px; /* Установка ширины */
+  width: 50px; /* Установка ширины */
   height: 10px; /* Установка высоты */
   padding: 9px 22px;
   font-size: 18px;

@@ -1,9 +1,8 @@
-// Ждем загрузки всего контента на странице
 document.addEventListener('DOMContentLoaded', () => {
     const newProductContainer = document.getElementById('product_new');
     const oldProductContainer = document.getElementById('product_old');
+    const popupProductList = document.getElementById('popup_product_list');
 
-    // Загружаем данные о продуктах из файла JSON
     fetch('products.json')
         .then(response => {
             if (!response.ok) {
@@ -13,11 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(products => {
             products.forEach(product => {
-                // Создаем элемент карточки
                 const card = document.createElement('div');
                 card.className = 'card';
 
-                // Создаем верхнюю часть карточки
                 const cardTop = document.createElement('div');
                 cardTop.className = 'card__top';
                 const cardImageLink = document.createElement('a');
@@ -29,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardImageLink.appendChild(cardImage);
                 cardTop.appendChild(cardImageLink);
 
-                // Создаем нижнюю часть карточки
                 const cardBottom = document.createElement('div');
                 cardBottom.className = 'card__bottom';
                 const productTitle = document.createElement('div');
                 productTitle.className = 'product_title';
                 productTitle.textContent = product.title;
+                productTitle.id = product.category;
                 const addButton = document.createElement('button');
                 addButton.className = 'card__add';
                 addButton.textContent = 'В корзину';
@@ -45,34 +42,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 inputOrder.inputMode = 'numeric';
                 inputOrder.style.display = 'none';
 
-                // Добавляем создаваемые элементы в карточку
                 cardBottom.appendChild(productTitle);
                 cardBottom.appendChild(addButton);
                 cardBottom.appendChild(inputOrder);
                 card.appendChild(cardTop);
                 card.appendChild(cardBottom);
 
-                // Выбираем правильный контейнер и добавляем карточку
-                if (product.id === 1) {
+                if (product.category === 1) {
                     newProductContainer.appendChild(card);
-                } else if (product.id === 2) {
+                } else if (product.category === 2) {
                     oldProductContainer.appendChild(card);
                 }
 
-                // Добавляем обработчик события для кнопки "В корзину"
                 addButton.addEventListener('click', () => {
                     addButton.style.display = 'none';
                     inputOrder.style.display = 'block';
                     inputOrder.value = 1; // Устанавливаем значение 1 в поле ввода
 
-                    // Добавляем обработчик события для изменения значения поля ввода
                     inputOrder.addEventListener('input', () => {
-                        // Если значение поля ввода 0, скрываем его и показываем кнопку "В корзину"
-                        if (inputOrder.value === '0') {
-                            inputOrder.style.display = 'none';
-                            addButton.style.display = 'block';
+                        const inputVal = inputOrder.value.trim();
+                        if (inputVal === '0') {
+                            removeOrderItem(product.title);
+                        } else if (inputVal !== '') {
+                            updateOrderItem(product, inputVal);
                         }
                     });
+
+                    addToOrder(product, inputOrder.value, inputOrder);
                 });
             });
         })
@@ -80,3 +76,88 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('There was a problem with the fetch operation:', error);
         });
 });
+
+function addToOrder(product, quantity, inputOrder) {
+    const popupProductList = document.getElementById('popup_product_list');
+    
+    let existingItem = Array.from(popupProductList.getElementsByClassName('order-item')).find(item => 
+        item.querySelector('.item-name').textContent === product.title
+    );
+
+    if (existingItem) {
+        existingItem.querySelector('.quantity__order').value = quantity;
+    } else {
+        const orderItem = document.createElement('div');
+        orderItem.className = 'order-item';
+
+        const orderItemImage = document.createElement('img');
+        orderItemImage.src = product.imageUrl;
+        orderItemImage.alt = product.title;
+    
+        const itemDetails = document.createElement('div');
+        itemDetails.className = 'item-details';
+        
+        const itemName = document.createElement('div');
+        itemName.className = 'item-name';
+        itemName.textContent = product.title;
+        
+        const itemQuantity = document.createElement('input');
+        itemQuantity.type = 'text';
+        itemQuantity.className = 'quantity__order';
+        itemQuantity.value = quantity;
+        itemQuantity.inputMode = 'numeric';
+
+        itemQuantity.addEventListener('input', () => {
+            const quantityVal = itemQuantity.value.trim();
+            if (quantityVal === '0') {
+                orderItem.remove();
+                inputOrder.style.display = 'none';
+                const addButton = inputOrder.parentElement.querySelector('.card__add');
+                if (addButton) addButton.style.display = 'block';
+            } else if (quantityVal !== '') {
+                inputOrder.value = itemQuantity.value;
+                inputOrder.dispatchEvent(new Event('input'));
+            }
+        });
+    
+        itemDetails.appendChild(itemName);
+        orderItem.appendChild(orderItemImage);
+        orderItem.appendChild(itemDetails);
+        orderItem.appendChild(itemQuantity);
+
+        popupProductList.appendChild(orderItem);
+    }
+}
+
+function updateOrderItem(product, quantity) {
+    const popupProductList = document.getElementById('popup_product_list');
+    let existingItem = Array.from(popupProductList.getElementsByClassName('order-item')).find(item => 
+        item.querySelector('.item-name').textContent === product.title
+    );
+
+    if (existingItem) {
+        existingItem.querySelector('.quantity__order').value = quantity;
+    }
+}
+
+function removeOrderItem(productTitle) {
+    const popupProductList = document.getElementById('popup_product_list');
+    let existingItem = Array.from(popupProductList.getElementsByClassName('order-item')).find(item => 
+        item.querySelector('.item-name').textContent === productTitle
+    );
+
+    if (existingItem) {
+        existingItem.remove();
+    }
+
+    const productCard = Array.from(document.getElementsByClassName('card')).find(card => 
+        card.querySelector('.product_title').textContent === productTitle
+    );
+
+    if (productCard) {
+        const addButton = productCard.querySelector('.card__add');
+        const inputOrder = productCard.querySelector('.input__order');
+        if (addButton) addButton.style.display = 'block';
+        if (inputOrder) inputOrder.style.display = 'none';
+    }
+}
