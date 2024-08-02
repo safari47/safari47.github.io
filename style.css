@@ -186,12 +186,77 @@ h1 em {
   transition: color .2s ease, background-color .2s ease, box-shadow .2s ease;
 }
 
-
-
 .input__order:focus {
   color: #212529;
   background-color: #fff;
   border-color: #86b7fe;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+
 }
+.container__order {
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #BFDBFE;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.header b {
+  font-size: 18px;
+  color: #fff;
+}
+
+.edit {
+  color: #fff;
+  margin-right: 20px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  margin: 20px;
+}
+
+.order-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-name {
+  font-weight: bold;
+  color: #fff;
+}
+.quantity__order {
+  display: block;
+  outline: 0;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  width: 30px; /* Установка ширины */
+  height: 10px; /* Установка высоты */
+  padding: 9px 22px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  background: linear-gradient(90deg, #5522fa 0, #0074e4 100%);
+  border-radius: 40px;
+  transition: color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+
