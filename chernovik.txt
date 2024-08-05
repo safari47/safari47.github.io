@@ -1,11 +1,17 @@
-// Пример использования функции addToOrder
-document.addEventListener('DOMContentLoaded', (event) => {
-    updateOrderHeaders()
+document.addEventListener('DOMContentLoaded', () => {
+    const newProductContainer = document.getElementById('product_new');
+    const oldProductContainer = document.getElementById('product_old');
+    const popupProductList = document.getElementById('popup_product_list');
+
     fetch('products.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(products => {
             products.forEach(product => {
-                const cardsContainer = product.category === 1 ? document.getElementById('product_new') : document.getElementById('product_old');
                 const card = document.createElement('div');
                 card.className = 'card';
 
@@ -24,7 +30,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 const productTitle = document.createElement('div');
                 productTitle.className = 'product_title';
                 productTitle.textContent = product.title;
-
                 productTitle.id = product.category;
                 const addButton = document.createElement('button');
                 addButton.className = 'card__add';
@@ -42,53 +47,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 card.appendChild(cardTop);
                 card.appendChild(cardBottom);
 
-                cardsContainer.appendChild(card);
+                if (product.category === 1) {
+                    newProductContainer.appendChild(card);
+                } else if (product.category === 2) {
+                    oldProductContainer.appendChild(card);
+                }
 
                 addButton.addEventListener('click', () => {
                     addButton.style.display = 'none';
                     inputOrder.style.display = 'block';
                     inputOrder.value = 1; // Устанавливаем значение 1 в поле ввода
-                    addToOrder(product, 1, inputOrder);
-                });
 
-                inputOrder.addEventListener('input', () => {
-                const quantity = parseInt(inputOrder.value.trim(), 10);
-                if (!isNaN(quantity)) {
-                    if (quantity === 0) {
-                        removeOrderItem(product.title); // Предполагаем, что `product.title` содержит название продукта
-                        inputOrder.style.display = 'none';
-                        const addButton = inputOrder.parentElement.querySelector('.card__add');
-                        if (addButton) addButton.style.display = 'block';
-                    } else {
-                        addToOrder(product, quantity, inputOrder);
-                    }
-                    }
+                    inputOrder.addEventListener('input', () => {
+                        const inputVal = inputOrder.value.trim();
+                        if (inputVal === '0') {
+                            removeOrderItem(product.title);
+                        } else if (inputVal !== '') {
+                            updateOrderItem(product, inputVal);
+                        }
+                    });
+
+                    addToOrder(product, inputOrder.value, inputOrder);
                 });
             });
         })
-        .catch(error => console.error('Ошибка при загрузке продуктов:', error));
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
 });
 
-function updateOrderHeaders() {
-    const cleanedOrderList = document.getElementById('cleaned_order');
-    const uncleanedOrderList = document.getElementById('uncleaned_order');
-    const cleanedOrderHeader = document.getElementById('cleaned_order_header');
-    const uncleanedOrderHeader = document.getElementById('uncleaned_order_header');
-
-    // Проверяем количество элементов с классом 'order-item'
-    cleanedOrderHeader.style.display = cleanedOrderList.querySelectorAll('.order-item').length === 0 ? 'none' : 'block';
-    uncleanedOrderHeader.style.display = uncleanedOrderList.querySelectorAll('.order-item').length === 0 ? 'none' : 'block';
-}
-
 function addToOrder(product, quantity, inputOrder) {
-    const cleanedOrderList = document.getElementById('cleaned_order');
-    const uncleanedOrderList = document.getElementById('uncleaned_order');
-
-    // Определяем нужный контейнер для заказа 
-    const targetOrderList = product.category === 1 ? cleanedOrderList : uncleanedOrderList;
-
-    // Находим существующий элемент в списке заказов
-    let existingItem = Array.from(targetOrderList.getElementsByClassName('order-item')).find(item =>
+    const popupProductList = document.getElementById('cleaned_order');
+    
+    let existingItem = Array.from(popupProductList.getElementsByClassName('order-item')).find(item => 
         item.querySelector('.item-name').textContent === product.title
     );
 
@@ -122,48 +113,50 @@ function addToOrder(product, quantity, inputOrder) {
                 inputOrder.style.display = 'none';
                 const addButton = inputOrder.parentElement.querySelector('.card__add');
                 if (addButton) addButton.style.display = 'block';
-                updateOrderHeaders(); // Обновляем заголовки после удаления элемента
             } else if (quantityVal !== '') {
                 inputOrder.value = itemQuantity.value;
                 inputOrder.dispatchEvent(new Event('input'));
             }
         });
-
+        
         itemDetails.appendChild(itemName);
         orderItem.appendChild(orderItemImage);
         orderItem.appendChild(itemDetails);
         orderItem.appendChild(itemQuantity);
 
-        targetOrderList.appendChild(orderItem);
+        popupProductList.appendChild(orderItem);
     }
-
-    updateOrderHeaders(); // Обновляем заголовки после добавления элемента
 }
 
+function updateOrderItem(product, quantity) {
+    const popupProductList = document.getElementById('popup_product_list');
+    let existingItem = Array.from(popupProductList.getElementsByClassName('order-item')).find(item => 
+        item.querySelector('.item-name').textContent === product.title
+    );
+
+    if (existingItem) {
+        existingItem.querySelector('.quantity__order').value = quantity;
+    }
+}
 
 function removeOrderItem(productTitle) {
-    const orderLists = [document.getElementById('cleaned_order'), document.getElementById('uncleaned_order')];
-    
-    orderLists.forEach(orderList => {
-        const itemToRemove = Array.from(orderList.getElementsByClassName('order-item')).find(item => 
-            item.querySelector('.item-name').textContent === productTitle
-        );
-        
-        if (itemToRemove) {
-            orderList.removeChild(itemToRemove);
-        }
-        updateOrderHeaders()
-    });
+    const popupProductList = document.getElementById('popup_product_list');
+    let existingItem = Array.from(popupProductList.getElementsByClassName('order-item')).find(item => 
+        item.querySelector('.item-name').textContent === productTitle
+    );
+
+    if (existingItem) {
+        existingItem.remove();
+    }
+
+    const productCard = Array.from(document.getElementsByClassName('card')).find(card => 
+        card.querySelector('.product_title').textContent === productTitle
+    );
+
+    if (productCard) {
+        const addButton = productCard.querySelector('.card__add');
+        const inputOrder = productCard.querySelector('.input__order');
+        if (addButton) addButton.style.display = 'block';
+        if (inputOrder) inputOrder.style.display = 'none';
+    }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    const stickyButton = document.querySelector('.sticky-button');
-    const containerHidden = document.querySelector('.container_hiden');
-    const containerOrder = document.querySelector('.container__order');
-
-    stickyButton.addEventListener('click', () => {
-        containerHidden.style.display = 'none';
-        containerOrder.style.display = 'block';
-    });
-});
-    
