@@ -78,11 +78,6 @@ h1 em {
   display: none;
 }
 
-.orders_section{
-  max-width: 95%;
-  margin: 0 auto;
-}
-
 .card {
   flex: 0 0 175px; /* Карточки фиксированной ширины и не растягиваются */
   min-height: 160px;
@@ -202,8 +197,8 @@ h1 em {
   box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
 
 }
+
 .container__order {
-  max-width: 95%;
   margin: 0 auto;
   background-color: #BFDBFE;
   background-color: rgba(255, 255, 255, 0.25);
@@ -227,6 +222,7 @@ h1 em {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
   font-size: 14px;
+  margin-left: 10px;
 }
 
 .order-item {
@@ -238,13 +234,14 @@ h1 em {
 }
 
 .order-item img {
-  width: 50px;
+  width: 60px;
   height: 40px;
   margin-right: 10px;
 }
 
 .item-details {
   flex-grow: 1;
+  width: 120px;
 }
 
 .item-name {
@@ -283,11 +280,39 @@ h1 em {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
   width: 100%;
   background: linear-gradient(90deg, #5522fa 0, #0074e4 30%);
-  height: 50px;
+  height: 65px;
   border-radius: 10px;
 }
 
 .sticky-button::before {
+  content: "\f07a"; /* Здесь используется FontAwesome Unicode для корзины */
+  font-family: "Font Awesome 5 Free"; /* Шрифт FontAwesome */
+  font-weight: 900; /* Вес шрифта FontAwesome */
+  color: #fff; /* Цвет иконки */
+  font-size: 24px; /* Размер иконки */
+  position: absolute;
+  top: 50%; /* Центровка по вертикали */
+  left: 50%; /* Центровка по горизонтали */
+  transform: translate(-50%, -50%); /* Корректировка центровки */
+  
+}
+.sticky-button-order{
+  position: fixed; /* Для Safari */
+  position: sticky;       /* Позиционирование sticky */
+  bottom: 0;              /* Положение внизу */
+  padding: 10px 20px;     /* Внутренние отступы */
+  background-color: #007bff;  /* Цвет фона */
+  color: #fff;            /* Цвет текста */
+  border: none;           /* Убрать границу */
+  border-radius: 5px;     /* Скругленные углы */
+  cursor: pointer;        /* Курсор при наведении */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+  width: 100%;
+  background: linear-gradient(90deg, #5522fa 0, #0074e4 30%);
+  height: 65px;
+  border-radius: 10px;
+}
+.sticky-button-order::before {
   content: "\f07a"; /* Здесь используется FontAwesome Unicode для корзины */
   font-family: "Font Awesome 5 Free"; /* Шрифт FontAwesome */
   font-weight: 900; /* Вес шрифта FontAwesome */

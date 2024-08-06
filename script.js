@@ -175,4 +175,43 @@ document.addEventListener('DOMContentLoaded', () => {
         containerOrder.style.display = 'block';
     });
 });
-    
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("orderForm");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        function getOrderData(containerId) {
+            const container = document.getElementById(containerId);
+            const items = container.querySelectorAll('.order-item');
+            const orderData = [];
+
+            items.forEach(item => {
+                const name = item.querySelector('.item-name').textContent;
+                const quantity = item.querySelector('.quantity__order').value;
+                orderData.push({ name, quantity });
+            });
+
+            return orderData;
+        }
+
+        const cleanedOrder = getOrderData('cleaned_order');
+        const uncleanedOrder = getOrderData('uncleaned_order');
+
+        fetch('http://127.0.0.1:8000/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                cleaned_order: cleanedOrder,
+                uncleaned_order: uncleanedOrder
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+    });
+});
+

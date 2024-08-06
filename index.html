@@ -50,8 +50,6 @@
                 <i class="fas fa-shopping-cart"></i>
             </button>
         </div>
-    </section>
-    <section class="orders_section">
         <div class="container__order">
             <div class="header">
                 <b>ВАШ ЗАКАЗ</b>
@@ -63,9 +61,20 @@
             <div class="popup__item" id="uncleaned_order">
                 <h3 id="uncleaned_order_header">НЕОЧИЩЕННЫЕ ОВОЩИ</h3>
             </div>
+
+            <form id="orderForm" action="http://127.0.0.1:5500" method="POST">
+                <input type="hidden" name="cleaned_order_data" id="cleaned_order_data">
+                <input type="hidden" name="uncleaned_order_data" id="uncleaned_order_data">
+                <button type="submit" class="sticky-button-order">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </form>
         </div>
     </section>
     
+        
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
 </body>
 
