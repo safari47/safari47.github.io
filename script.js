@@ -199,19 +199,27 @@ document.addEventListener("DOMContentLoaded", function () {
         const cleanedOrder = getOrderData('cleaned_order');
         const uncleanedOrder = getOrderData('uncleaned_order');
 
-        fetch('http://127.0.0.1:8000/', {
+        document.getElementById('cleaned_order_data').value = JSON.stringify(cleanedOrder);
+
+        document.getElementById('uncleaned_order_data').value = JSON.stringify(uncleanedOrder);
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                cleaned_order: cleanedOrder,
-                uncleaned_order: uncleanedOrder
-            })
+            body: formData
         })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
+        .then(response => {
+            if (response.ok) {
+                // Редирект на нужную HTML страницу
+                window.location.href = '/sucess_order/sucess.html';
+            } else {
+                // Обработка ошибки
+                console.error('Error:', response.status, response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 });
-
