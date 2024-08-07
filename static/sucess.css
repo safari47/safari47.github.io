@@ -1,7 +1,21 @@
 /*5 Minutes Challenge*/
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap");
+
 body {
-  background: #eceff1;
+  background-image: url("Image/back_body.jpg");
+  background-size: cover;
+  /* Покрывает весь экран */
+  background-repeat: no-repeat;
+  /* Не повторяет изображение */
+  background-attachment: fixed;
+  /* Фиксирует изображение при скроллинге */
+  background-position: center;
+  /* Выравнивает изображение по центру */
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card {
@@ -9,13 +23,16 @@ body {
   border-radius: 30px;
   text-align: center;
   padding: 15px;
-  max-width: 375px;
-  margin: 100px auto;
-  box-shadow: 20px 20px 20px #e6eaed, -20px -20px 20px #f2f4f5;
+  width: 70%;
+  height: 60%;
+  max-width: none;
+  box-shadow: 5px 5px 5px #e6eaed, -5px -5px 5px #f2f4f5;
 }
+
 .card .ilustration {
   margin: 30px;
 }
+
 .card .ilustration lottie-player {
   width: 200px;
   height: 200px;
@@ -24,6 +41,7 @@ body {
   margin: 0 auto;
   box-shadow: 20px 20px 20px #e6eaed, -20px -20px 20px #f2f4f5;
 }
+
 .card h3 {
   font-family: "Fredoka", sans-serif;
   font-size: 2rem;
@@ -32,6 +50,7 @@ body {
   font-weight: bold;
   margin: 30px 0;
 }
+
 .card p {
   font-family: "Fredoka", sans-serif;
   font-size: 1rem;
@@ -40,6 +59,7 @@ body {
   margin: 30px auto;
   max-width: 80%;
 }
+
 .card button {
   font-family: "Fredoka", sans-serif;
   font-size: 1.1rem;
@@ -55,10 +75,12 @@ body {
   transition: ease all 0.3s;
   cursor: pointer;
 }
+
 .card button:hover {
   box-shadow: 20px 20px 20px rgba(122, 196, 125, 0.1), -20px -20px 20px rgba(136, 202, 139, 0.1);
   transform: translateY(-3px);
 }
+
 .card button:active {
   transform: scale(0.9);
   box-shadow: inset -1px -1px 3px rgba(122, 196, 125, 0.3), -20px -20px 20px rgba(136, 202, 139, 0);
