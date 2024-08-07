@@ -260,7 +260,7 @@ function updateProductCard(productName, quantity) {
 }
 
 function sucess_order(){
-    window.location.href="sucess.html";
+    window.location.href="/template/sucess.html";
 }
 
 // Обработчик для ссылки "История заказов"
