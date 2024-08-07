@@ -69,6 +69,7 @@ function handleAddToCart(event, product) {
         updateCartButton();
     }
     input.addEventListener('change', function() {
+        input.blur();
         if (this.value === '0' || this.value === '') {
             const newButton = document.createElement('button');
             newButton.textContent = 'В корзину';
