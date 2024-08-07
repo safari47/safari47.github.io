@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 inputOrder.type = 'text';
                 inputOrder.className = 'input__order';
                 inputOrder.placeholder = 'Введите кол-во';
-                inputOrder.inputMode = 'numeric';
+                inputOrder.inputMode = 'text';
                 inputOrder.style.display = 'none';
 
                 cardBottom.appendChild(productTitle);
