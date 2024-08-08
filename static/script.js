@@ -82,6 +82,7 @@ function handleAddToCart(event, product) {
         } else {
             updateCart();
         }
+        updateCartButton();
     });
     
     input.addEventListener('blur', function() {
@@ -147,6 +148,7 @@ function handleAddToCart(event) {
         } else {
             updateCart();
         }
+        updateCartButton();
     });
 
     input.addEventListener('blur', function () {
