@@ -77,7 +77,7 @@ function handleAddToCart(event, product) {
 
     input.addEventListener('change', function() {
         if (this.value > 0) {
-        input.blur();  // Скрываем клавиатуру на мобильных устройствах
+            input.blur();  // Скрываем клавиатуру на мобильных устройствах
         }
         if (this.value === '0' || this.value === '') {
             const newButton = document.createElement('button');
@@ -116,58 +116,6 @@ function updateCartButton() {
     } else {
         cartButton.style.display = 'none';
     }
-}
-
-function handleAddToCart(event) {
-    const productCard = event.target.closest('.product-card');
-    const productName = productCard.querySelector('.product-name').textContent;
-    const productImage = productCard.querySelector('.product-image').src;
-    const category = productCard.closest('.container').id;
-
-    const input = document.createElement('input');
-    input.type = 'number';
-    input.min = '0';
-    input.value = '1';
-    input.className = 'quantity-input';
-
-    event.target.replaceWith(input);
-
-    function updateCart() {
-        const quantity = parseInt(input.value, 10);
-        if (quantity > 0) {
-            cart[productName] = { quantity, image: productImage, category };
-        } else {
-            delete cart[productName];
-        }
-        updateCartButton();
-    }
-
-    input.addEventListener('change', function () {
-        if (this.value === '0' || this.value === '') {
-            const newButton = document.createElement('button');
-            newButton.textContent = 'В корзину';
-            newButton.className = 'add-to-cart';
-            this.replaceWith(newButton);
-            newButton.addEventListener('click', handleAddToCart);
-            delete cart[productName];
-        } else {
-            updateCart();
-        }
-    });
-
-    input.addEventListener('blur', function () {
-        if (this.value === '0' || this.value === '') {
-            const newButton = document.createElement('button');
-            newButton.textContent = 'В корзину';
-            newButton.className = 'add-to-cart';
-            this.replaceWith(newButton);
-            newButton.addEventListener('click', handleAddToCart);
-            delete cart[productName];
-        }
-        updateCartButton();
-    });
-
-    updateCart();
 }
 
 document.querySelectorAll('.add-to-cart').forEach(button => {
