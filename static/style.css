@@ -143,11 +143,7 @@ h2 {
 }
 
 .modal-content {
-    background-image: url("/Image/back_body.jpg");
-    background-size: cover; /* Покрывает весь экран */
-    background-repeat: no-repeat; /* Не повторяет изображение */
-    background-attachment: fixed; /* Фиксирует изображение при скроллинге */
-    background-position: center; /* Выравнивает изображение по центру */
+    background-color: #26054E;
     margin: 10% auto;
     padding: 20px;
     border-radius: 10px;
