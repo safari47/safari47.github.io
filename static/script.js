@@ -69,7 +69,9 @@ function handleAddToCart(event, product) {
         updateCartButton();
     }
     input.addEventListener('change', function() {
-        input.blur();
+        if (this.value > 0) {
+        input.blur();  // Скрываем клавиатуру на мобильных устройствах
+        }
         if (this.value === '0' || this.value === '') {
             const newButton = document.createElement('button');
             newButton.textContent = 'В корзину';
@@ -132,6 +134,9 @@ function handleAddToCart(event) {
     }
 
     input.addEventListener('change', function () {
+        if (this.value > 0) {
+        input.blur();  // Скрываем клавиатуру на мобильных устройствах
+        }
         if (this.value === '0' || this.value === '') {
             const newButton = document.createElement('button');
             newButton.textContent = 'В корзину';
