@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap");
 
 body {
-  background-image: url("/Image/back_body.jpg");
+  background-image: url("app/static/Image/back_body.jpg");
   background-size: cover;
   /* Покрывает весь экран */
   background-repeat: no-repeat;

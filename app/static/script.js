@@ -35,7 +35,7 @@ function createProductCards(products) {
 // Функция для загрузки данных из JSON файла
 async function loadProductsFromJSON() {
     try {
-        const response = await fetch("/product/products.json");
+        const response = await fetch("/static/product/products.json");
         const products = await response.json();
         createProductCards(products);
     } catch (error) {
@@ -220,9 +220,29 @@ function updateProductCard(productKey, quantity) {
     }
 }
 
-function sucess_order(){
-    window.location.href="/template/sucess.html";
+async function success_order() {
+    try {
+        const response = await fetch('/api', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cart) // Отправляем корзину в формате JSON
+        });
+        
+        if (response.ok) {
+            const responseData = await response.json();
+            console.log('Order success:', responseData);
+            window.location.href="/template/sucess.html";
+            // Здесь можно добавить логику для обработки успешного оформления заказа
+        } else {
+            console.error('Order failed:', response.status, response.statusText);
+        }
+    } catch (error) {
+        console.error('Ошибка при отправке заказа:', error);
+    }
 }
+
 
 // Обработчик для ссылки "История заказов"
 document.getElementById('orderHistoryLink').addEventListener('click', function (e) {

@@ -1,92 +1,92 @@
 [
     {
       "name": "Картофель",
-      "image": "/Image/8.png",
+      "image": "/static/Image/8.png",
       "description": "",
       "category": "peeled"
     }
     ,
     {
       "name": "Черри",
-      "image": "/Image/9.png",
+      "image": "/static/Image/9.png",
       "description": "",
       "category": "peeled"
     },
     {
       "name": "Дольки",
-      "image": "/Image/5.png",
+      "image": "/static/Image/5.png",
       "description": "",
       "category": "peeled"
     },
     {
       "name": "Лук красный",
-      "image": "/Image/1.png",
+      "image": "/static/Image/1.png",
       "description": "",
       "category": "peeled"
     },
     {
       "name": "Свекла",
-      "image": "/Image/3.png",
+      "image": "/static/Image/3.png",
       "description": "",
       "category": "peeled"
     },
     {
       "name": "Морковь",
-      "image": "/Image/4.png",
+      "image": "/static/Image/4.png",
       "description": "",
       "category": "peeled"
     },
     {
       "name": "Чеснок",
-      "image": "/Image/6.png",
+      "image": "/static/Image/6.png",
       "description": "",
       "category": "peeled"
     },
     {
       "name": "Лук репчатый",
-      "image": "/Image/7.png",
+      "image": "/static/Image/7.png",
       "description": "",
       "category": "peeled"
     },
     {
       "name": "Чеснок",
-      "image": "/Image/2.png",
+      "image": "/static/Image/2.png",
       "description": "",
       "category": "unpeeled"
     },
     {
       "name": "Картофель",
-      "image": "/Image/10.png",
+      "image": "/static/Image/10.png",
       "description": "",
       "category": "unpeeled"
     },
     {
       "name": "Морковь",
-      "image": "/Image/11.png",
+      "image": "/static/Image/11.png",
       "description": "",
       "category": "unpeeled"
     },
     {
       "name": "Свекла",
-      "image": "/Image/12.png",
+      "image": "/static/Image/12.png",
       "description": "",
       "category": "unpeeled"
     },
     {
       "name": "Лук репчатый",
-      "image": "/Image/13.png",
+      "image": "/static/Image/13.png",
       "description": "",
       "category": "unpeeled"
     },
     {
       "name": "Лук красный",
-      "image": "/Image/14.png",
+      "image": "/static/Image/14.png",
       "description": "",
       "category": "unpeeled"
     },
     {
       "name": "Капуста",
-      "image": "/Image/15.png",
+      "image": "/static/Image/15.png",
       "description": "",
       "category": "unpeeled"
     }

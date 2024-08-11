@@ -4,7 +4,7 @@ body {
     padding: 0;
     color: #e0e0e0;
     padding-bottom: 60px;
-    background-image: url("/Image/back_body.jpg");
+    background-image: url("./Image/back_body.jpg");
     background-size: cover; /* Покрывает весь экран */
     background-repeat: no-repeat; /* Не повторяет изображение */
     background-attachment: fixed; /* Фиксирует изображение при скроллинге */
