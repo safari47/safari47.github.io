@@ -1,12 +1,15 @@
-from pydantic import BaseModel
-from typing import Dict, Any
+from typing import Dict
+from pydantic import BaseModel, RootModel
+from datetime import date
 
-class CartItem(BaseModel):
-    name: str
+
+class Product(BaseModel):
     quantity: int
-    category: str
     image: str
+    category: str
+    name: str
 
-# Определите модель данных для всего запроса корзины
 class Cart(BaseModel):
-    items: Dict[str, CartItem]
+    products: Dict[str, Product]  # Словарь продуктов
+    date: date
+    organization: str

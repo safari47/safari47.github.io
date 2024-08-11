@@ -63,10 +63,10 @@ function handleAddToCart(event, product) {
         const quantity = parseInt(input.value, 10);
         if (quantity > 0) {
             cart[productKey] = {
-                quantity, 
-                image: product.image, 
-                category: product.category, 
-                name: productName 
+                quantity,
+                image: product.image,
+                category: product.category,
+                name: productName
             };
             updateProductCard(productKey, quantity);
         } else {
@@ -75,7 +75,7 @@ function handleAddToCart(event, product) {
         updateCartButton();
     }
 
-    input.addEventListener('change', function() {
+    input.addEventListener('change', function () {
         if (this.value > 0) {
             input.blur();  // Скрываем клавиатуру на мобильных устройствах
         }
@@ -92,7 +92,7 @@ function handleAddToCart(event, product) {
         updateCartButton();
     });
 
-    input.addEventListener('blur', function() {
+    input.addEventListener('blur', function () {
         if (this.value === '0' || this.value === '') {
             const newButton = document.createElement('button');
             newButton.textContent = 'В корзину';
@@ -221,20 +221,25 @@ function updateProductCard(productKey, quantity) {
 }
 
 async function success_order() {
+    const order_date = document.getElementById('date_order').value;
+    const name_organization = document.getElementById('organization_name').value;
     try {
         const response = await fetch('/api', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(cart) // Отправляем корзину в формате JSON
+            body: JSON.stringify({
+                products: cart, 
+                date: order_date,
+                organization: name_organization
+            })
         });
-        
+
         if (response.ok) {
             const responseData = await response.json();
             console.log('Order success:', responseData);
-            window.location.href="/template/sucess.html";
-            // Здесь можно добавить логику для обработки успешного оформления заказа
+            window.location.href = "/app/sucess.html";
         } else {
             console.error('Order failed:', response.status, response.statusText);
         }
@@ -249,3 +254,4 @@ document.getElementById('orderHistoryLink').addEventListener('click', function (
     e.preventDefault();
     alert('Здесь будет отображаться история заказов пользователя.');
 });
+
