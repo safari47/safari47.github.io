@@ -239,12 +239,14 @@ async function success_order() {
         if (response.ok) {
             const responseData = await response.json();
             console.log('Order success:', responseData);
-            window.location.href = "/app/sucess.html";
+            alert(`Ваш заказ доставлен: ${responseData.message}`)
         } else {
             console.error('Order failed:', response.status, response.statusText);
+            alert('При отправке заказа произошла ошибка. Пожалуйста, попробуйте позже.');
         }
     } catch (error) {
         console.error('Ошибка при отправке заказа:', error);
+        alert('При отправке заказа произошла ошибка. Пожалуйста, попробуйте позже.')
     }
 }
 

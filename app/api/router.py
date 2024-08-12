@@ -21,4 +21,4 @@ async def create_order(cart: Cart):
     name_organization = cart.organization
     print(generate_message(name_organization, order_date, products))
 
-    return {"message": "Order received successfully"}
+    return {"message": "Успешно"}
