@@ -7,10 +7,10 @@ def generate_message(name_organization: str, order_date: str, products: Dict[str
     unpeeled_products = []
 
     for product in products.values():
-        if product.category == "peeled":
-            peeled_products.append(f"{product.name} : {product.quantity} кг.")
-        elif product.category == "unpeeled":
-            unpeeled_products.append(f"{product.name} : {product.quantity} кг.")
+        if product.category == 1:
+            peeled_products.append(f"{product.id}. {product.name} : {product.quantity} кг.")
+        elif product.category == 2:
+            unpeeled_products.append(f"{product.id}. {product.name} : {product.quantity} кг.")
 
     # Формируем сообщение
     message_lines = [

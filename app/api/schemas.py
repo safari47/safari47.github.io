@@ -4,10 +4,12 @@ from datetime import date
 
 
 class Product(BaseModel):
+    id: int
+    name: str
+    category: int
     quantity: int
     image: str
-    category: str
-    name: str
+
 
 class Cart(BaseModel):
     products: Dict[str, Product]  # Словарь продуктов

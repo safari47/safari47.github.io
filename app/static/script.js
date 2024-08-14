@@ -16,7 +16,7 @@ function createProductCards(products) {
         productCard.innerHTML = `
             <img src="${product.image}" alt="${product.description}" class="product-image">
             <div class="product-info">
-                <div class="product-name">${product.name}</div>
+                <div class="product-name" id=${product.id}>${product.name}</div>
                 <button class="add-to-cart">В корзину</button>
             </div>
         `;
@@ -24,7 +24,7 @@ function createProductCards(products) {
         const addToCartButton = productCard.querySelector('.add-to-cart');
         addToCartButton.addEventListener('click', (event) => handleAddToCart(event, product));
 
-        if (product.category === 'peeled') {
+        if (product.category === 1) {
             peeledGrid.appendChild(productCard);
         } else {
             unpeeledGrid.appendChild(productCard);
@@ -33,9 +33,10 @@ function createProductCards(products) {
 }
 
 // Функция для загрузки данных из JSON файла
-async function loadProductsFromJSON() {
+async function loadProductsFromAPI() {
     try {
-        const response = await fetch("/static/product/products.json");
+        const response = await fetch("/api/products");
+        if (!response.ok) throw new Error('Network response was not ok');
         const products = await response.json();
         createProductCards(products);
     } catch (error) {
@@ -44,7 +45,7 @@ async function loadProductsFromJSON() {
 }
 
 // Вызываем функцию загрузки данных при загрузке страницы
-window.addEventListener('load', loadProductsFromJSON);
+window.addEventListener('load', loadProductsFromAPI);
 
 function handleAddToCart(event, product) {
     const productCard = event.target.closest('.product-card');
@@ -63,10 +64,11 @@ function handleAddToCart(event, product) {
         const quantity = parseInt(input.value, 10);
         if (quantity > 0) {
             cart[productKey] = {
-                quantity,
-                image: product.image,
+                id: product.id,
+                name: product.name,
                 category: product.category,
-                name: productName
+                quantity,
+                image: product.image
             };
             updateProductCard(productKey, quantity);
         } else {
@@ -142,8 +144,8 @@ function updateCartModal() {
     cartItems.innerHTML = '';
 
     const categories = {
-        peeled: { name: 'Чищенные овощи', items: [] },
-        unpeeled: { name: 'Нечищенные овощи', items: [] }
+        1: { name: 'Чищенные овощи', items: [] },
+        2: { name: 'Нечищенные овощи', items: [] }
     };
 
     for (const [productKey, item] of Object.entries(cart)) {
@@ -230,7 +232,7 @@ async function success_order() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                products: cart, 
+                products: cart,
                 date: order_date,
                 organization: name_organization
             })
