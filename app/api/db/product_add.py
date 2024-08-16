@@ -1,5 +1,5 @@
-from database import engine, SessionLocal
-from models import Category, Product
+from app.api.db.database import  SessionLocal
+from app.api.db.models import Category, Product
 
 # Список категорий
 categories_data = [
@@ -27,27 +27,33 @@ products_data = [
     {"name": "Капуста", "image": "/static/Image/15.png", "description": "", "category": 2},
 ]
 
-# Работаем с сессией с использованием контекстного менеджера
-with SessionLocal() as session:
-    # Вставка категорий
-    for category_data in categories_data:
-        category = Category(**category_data)
-        session.add(category)
+def initialize_products():
+    # Работаем с сессией с использованием контекстного менеджера
+    with SessionLocal() as session:
+        existing_products = session.query(Product).count()
+        if existing_products > 0:
+            print("Продукты уже существуют!")
+        else:
+            # Вставка категорий
+            for category_data in categories_data:
+                category = Category(**category_data)
+                session.add(category)
 
-    # Сразу же сохраняем изменения, чтобы категории появились в БД
-    session.commit()
+            # Сразу же сохраняем изменения, чтобы категории появились в БД
+            session.commit()
 
-    # Вставка продуктов
-    for product_data in products_data:
-        product = Product(
-            name=product_data["name"],
-            image=product_data["image"],
-            description=product_data["description"],
-            category_id=product_data["category"]
-        )
-        session.add(product)
+            # Вставка продуктов
+            for product_data in products_data:
+                product = Product(
+                    name=product_data["name"],
+                    image=product_data["image"],
+                    description=product_data["description"],
+                    category_id=product_data["category"]
+                )
+                session.add(product)
+            print("Продукты добавлены!")
 
-    # Завершаем транзакцию
-    session.commit()
+        # Завершаем транзакцию
+        session.commit()
 
-print("Вставка успешна!")
+

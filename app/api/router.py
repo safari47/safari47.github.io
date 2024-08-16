@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 from app.api.schemas import Cart
-from app.api.utils import generate_message
+from app.api.utils import generate_message, add_order
 from app.api.db.database import SessionLocal
 from app.api.db.models import Product
+from datetime import datetime
 
 router = APIRouter(prefix="", tags=["API"])
 templates = Jinja2Templates(directory="app/template")
@@ -37,7 +38,16 @@ async def create_order(cart: Cart):
     order_date = cart.date
     name_organization = cart.organization
     user_id = cart.user_id
-    message = generate_message(name_organization, order_date, products, user_id)
-    print(message)
+    order_datetime = (datetime.now()).strftime("%Y-%m-%d %H:%M")
+    message = generate_message(
+        name_organization, order_date, products, user_id, order_datetime
+    )
+    try:
+        succes_order=add_order(name_organization, order_date, products, user_id, order_datetime)
+        return {"message": f"{succes_order}"}
+    except Exception as e:
+        return {"error": str(e)}
 
-    return {"message": "Успешно"}
+    
+
+    

@@ -30,6 +30,7 @@ class Orders(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     CustomerId = Column(Integer, nullable=False)
+    Organization=Column(String, nullable=False)
     OrderDate = Column(DateTime, nullable=False)
     DeliveryDate = Column(DateTime, nullable=False)
     

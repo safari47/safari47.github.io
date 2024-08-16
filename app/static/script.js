@@ -246,11 +246,11 @@ async function success_order() {
             alert(`Ваш заказ доставлен: ${responseData.message}`)
         } else {
             console.error('Order failed:', response.status, response.statusText);
-            alert('При отправке заказа произошла ошибка. Пожалуйста, попробуйте позже.');
+            alert(`При отправке заказа произошла ошибка:${response.statusText}`);
         }
     } catch (error) {
         console.error('Ошибка при отправке заказа:', error);
-        alert('При отправке заказа произошла ошибка. Пожалуйста, попробуйте позже.')
+        alert(`При отправке заказа произошла ошибка:${response.statusText}`);
     }
 }
 
