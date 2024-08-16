@@ -1,11 +1,12 @@
 from app.api.schemas import Product
 from typing import Dict
+from datetime import datetime
 
-def generate_message(name_organization: str, order_date: str, products: Dict[str, Product]) -> str:
+def generate_message(name_organization: str, order_date: str, products: Dict[str, Product], user_id: int) -> str:
     # Создаем два списка продуктов по категориям
     peeled_products = []
     unpeeled_products = []
-
+    order_datetime= (datetime.now()).strftime("%d-%m-%Y %H:%M")
     for product in products.values():
         if product.category == 1:
             peeled_products.append(f"{product.id}. {product.name} : {product.quantity} кг.")
@@ -15,7 +16,9 @@ def generate_message(name_organization: str, order_date: str, products: Dict[str
     # Формируем сообщение
     message_lines = [
         f"Наименование организации: {name_organization}",
-        f"Дата заказа: {order_date}",
+        f"Имя пользователя: {user_id}",
+        f"Время поступления заявки: {order_datetime}",
+        f"Дата поставки заявки: {order_date.strftime("%d-%m-%Y")}",
         "Овощи в заказе:",
     ]
 

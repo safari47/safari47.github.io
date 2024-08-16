@@ -1,3 +1,4 @@
+const user_id = '123456789'
 let cart = {};
 const cartButton = document.querySelector('.cart-button');
 const modal = document.getElementById('cartModal');
@@ -234,7 +235,8 @@ async function success_order() {
             body: JSON.stringify({
                 products: cart,
                 date: order_date,
-                organization: name_organization
+                organization: name_organization,
+                user_id: user_id
             })
         });
 

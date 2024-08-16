@@ -5,7 +5,6 @@ from app.api.utils import generate_message
 from app.api.db.database import SessionLocal
 from app.api.db.models import Product
 
-
 router = APIRouter(prefix="", tags=["API"])
 templates = Jinja2Templates(directory="app/template")
 
@@ -37,6 +36,8 @@ async def create_order(cart: Cart):
     products = cart.products
     order_date = cart.date
     name_organization = cart.organization
-    print(generate_message(name_organization, order_date, products))
+    user_id = cart.user_id
+    message = generate_message(name_organization, order_date, products, user_id)
+    print(message)
 
     return {"message": "Успешно"}

@@ -11,12 +11,13 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
-TOKEN = '7428120966:AAG6PRbBJrj1Rfq6sAeeMpkzpr_rLhCTY_I'
+TOKEN = "7428120966:AAG6PRbBJrj1Rfq6sAeeMpkzpr_rLhCTY_I"
+CHANNEL_ID = "-1002233519343"
 
 dp = Dispatcher()
 
 
-@dp.message(Command('start'))
+@dp.message(Command("start"))
 async def command_start_handler(message: Message) -> None:
     markup = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -28,7 +29,14 @@ async def command_start_handler(message: Message) -> None:
             ]
         ]
     )
-    await message.answer("По кнопке ниже вы можете оформить заказ!", reply_markup=markup)
+    await message.answer(
+        "По кнопке ниже вы можете оформить заказ!", reply_markup=markup
+    )
+
+
+async def send_message_to_channel(bot: Bot, message) -> None:
+    await bot.send_message(CHANNEL_ID, message)
+
 
 async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
