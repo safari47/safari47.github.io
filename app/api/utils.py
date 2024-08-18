@@ -1,13 +1,14 @@
-from app.api.schemas import Product
+from app.api.schemas import ProductCart
 from typing import Dict
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from app.api.db.database import SessionLocal
-from app.api.db.models import Orders,OrderItems
+from app.api.db.models import Orders,OrderItems,Category,Product
 from time import time
+from fastapi.responses import JSONResponse
+from datetime import datetime
 
-
-def generate_message(name_organization: str, order_date: str, products: Dict[str, Product], user_id: int, order_datetime: datetime) -> str:
+def generate_message(name_organization: str, order_date: str, products: Dict[str, ProductCart], user_id: int, order_datetime: datetime) -> str:
     # Создаем два списка продуктов по категориям
     peeled_products = []
     unpeeled_products = []
@@ -46,7 +47,7 @@ def add_order(name_organization, order_date, products, user_id, order_datetime, 
         while retries < max_retries:
             try:
                 # Начало транзакции
-                new_order = Orders(CustomerId=user_id, Organization=name_organization, OrderDate=order_date, DeliveryDate=order_datetime)
+                new_order = Orders(CustomerId=user_id, Organization=name_organization, OrderDate=order_datetime, DeliveryDate=order_date)
                 session.add(new_order)
                 session.commit()
 
@@ -75,3 +76,41 @@ def add_order(name_organization, order_date, products, user_id, order_datetime, 
             raise Exception("Maximum retries reached, order was not processed.")
 
 
+
+def get_orders(data):
+    with SessionLocal() as session:
+        try:
+            # Ищем заказы по заданной дате
+            orders = session.query(Orders).filter(Orders.DeliveryDate == data).all()
+
+            if not orders:
+                return JSONResponse(content={"orders": []})  # Возвращаем пустой список, если заказов нет
+
+            result = []
+            for order in orders:
+                order_data = {
+                    "id": order.id,
+                    "organizationName": order.Organization,
+                    "categories": {}
+                }
+
+                for item in order.order_items:
+                    product = session.query(Product).filter(Product.id == item.ProductId).first()
+                    category = session.query(Category).filter(Category.id == product.category_id).first()
+
+                    # Заполняем товары по категориям
+                    if category.name not in order_data['categories']:
+                        order_data['categories'][category.name] = []
+
+                    order_data['categories'][category.name].append({
+                        "id": product.id,
+                        "productName": product.name,
+                        "quantity": item.Quantity,
+                        "unit": "кг."  # Или другое значение, если у вас есть поле unit
+                    })
+
+                result.append(order_data)
+
+            return JSONResponse(content={"orders": result})
+        except Exception as e:
+            return JSONResponse(content={"error": str(e)}, status_code=500)

@@ -3,7 +3,7 @@ from pydantic import BaseModel, RootModel
 from datetime import date
 
 
-class Product(BaseModel):
+class ProductCart(BaseModel):
     id: int
     name: str
     category: int
@@ -12,7 +12,10 @@ class Product(BaseModel):
 
 
 class Cart(BaseModel):
-    products: Dict[str, Product]  # Словарь продуктов
+    products: Dict[str, ProductCart]  # Словарь продуктов
     date: date
     organization: str
     user_id: str
+
+class DateRequest(BaseModel):
+    date: date

@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-from app.api.schemas import Cart
-from app.api.utils import generate_message, add_order
+from app.api.schemas import Cart, DateRequest
+from app.api.utils import generate_message, add_order, get_orders
 from app.api.db.database import SessionLocal
 from app.api.db.models import Product
 from datetime import datetime
+from app.api.db.database import SessionLocal
 
 router = APIRouter(prefix="", tags=["API"])
 templates = Jinja2Templates(directory="app/template")
@@ -13,6 +14,11 @@ templates = Jinja2Templates(directory="app/template")
 @router.get("/")
 async def get_main_page(request: Request):
     return templates.TemplateResponse(name="index.html", context={"request": request})
+
+
+@router.get("/orders")
+async def get_orders_page(request: Request):
+    return templates.TemplateResponse(name="order_history.html", context={"request": request})
 
 
 @router.get("/api/products")
@@ -43,11 +49,15 @@ async def create_order(cart: Cart):
         name_organization, order_date, products, user_id, order_datetime
     )
     try:
-        succes_order=add_order(name_organization, order_date, products, user_id, order_datetime)
+        succes_order = add_order(
+            name_organization, order_date, products, user_id, order_datetime
+        )
         return {"message": f"{succes_order}"}
     except Exception as e:
         return {"error": str(e)}
 
-    
 
-    
+@router.post("/api/orders")
+async def get_orders_history(data: DateRequest):
+    date_obj = data.date.strftime("%Y-%m-%d %H:%M")
+    return get_orders(date_obj)
