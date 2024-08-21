@@ -2,7 +2,8 @@ import asyncio
 import logging
 import sys
 import time
-from os import getenv
+from dotenv import load_dotenv
+import os
 
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
@@ -11,8 +12,12 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
-TOKEN = "7428120966:AAG6PRbBJrj1Rfq6sAeeMpkzpr_rLhCTY_I"
-CHANNEL_ID = "-1002233519343"
+load_dotenv()
+   
+TOKEN = os.getenv('TOKEN')
+CHANNEL_ID = os.getenv('CHANNEL_ID')
+
+bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 dp = Dispatcher()
 
@@ -34,13 +39,12 @@ async def command_start_handler(message: Message) -> None:
     )
 
 
-async def send_message_to_channel(bot: Bot, message) -> None:
+async def send_message_to_channel(message) -> None:
     await bot.send_message(CHANNEL_ID, message)
 
 
 async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
     # And the run events dispatching
     await dp.start_polling(bot)

@@ -6,6 +6,7 @@ from app.api.db.database import SessionLocal
 from app.api.db.models import Product
 from datetime import datetime
 from app.api.db.database import SessionLocal
+from app.api.tg_bot import send_message_to_channel, Bot, TOKEN
 
 router = APIRouter(prefix="", tags=["API"])
 templates = Jinja2Templates(directory="app/template")
@@ -18,7 +19,9 @@ async def get_main_page(request: Request):
 
 @router.get("/orders")
 async def get_orders_page(request: Request):
-    return templates.TemplateResponse(name="order_history.html", context={"request": request})
+    return templates.TemplateResponse(
+        name="order_history.html", context={"request": request}
+    )
 
 
 @router.get("/api/products")
@@ -52,6 +55,7 @@ async def create_order(cart: Cart):
         succes_order = add_order(
             name_organization, order_date, products, user_id, order_datetime
         )
+        await send_message_to_channel(message)
         return {"message": f"{succes_order}"}
     except Exception as e:
         return {"error": str(e)}

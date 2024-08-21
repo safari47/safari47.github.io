@@ -225,7 +225,14 @@ function updateProductCard(productKey, quantity) {
 
 async function success_order() {
     const order_date = document.getElementById('date_order').value;
-    const name_organization = document.getElementById('organization_name').value;
+    const name_organization = String(document.getElementById('organization_name').value).trim();
+
+    // Проверка, если name_organization пустое
+    if (!name_organization) {
+        alert('Название организации не может быть пустым!');
+        return; // Прекращаем выполнение функции, если name_organization пустое
+    }
+
     try {
         const response = await fetch('/api', {
             method: 'POST',
@@ -243,16 +250,17 @@ async function success_order() {
         if (response.ok) {
             const responseData = await response.json();
             console.log('Order success:', responseData);
-            alert(`Ваш заказ доставлен: ${responseData.message}`)
+            alert(`Ваш заявка успешно принята! Номер вашей заявки: №${responseData.message}`);
         } else {
             console.error('Order failed:', response.status, response.statusText);
-            alert(`При отправке заказа произошла ошибка:${response.statusText}`);
+            alert(`При отправке заказа произошла ошибка: ${response.statusText}`);
         }
     } catch (error) {
         console.error('Ошибка при отправке заказа:', error);
-        alert(`При отправке заказа произошла ошибка:${response.statusText}`);
+        alert(`При отправке заказа произошла ошибка: ${error.message}`);
     }
 }
+
 
 
 // Обработчик для ссылки "История заказов"
