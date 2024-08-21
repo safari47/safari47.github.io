@@ -242,7 +242,7 @@ h2 {
 
 /* Стили для навигационной панели */
 .nav-panel {
-    background-color: #333;
+    background-color: #6c6798;
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -272,7 +272,21 @@ h2 {
     margin-right: 10px;
 }
 
-input[type="date"], [type='text'] {
+.H-checkout-button {
+    background-color: transparent;
+    color: #fff;
+    border: 0.5px solid #679888;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.H-checkout-button:hover {
+    background-color: #45a049;
+}
+
+input[type="date"],
+[type='text'] {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
     border: none;
@@ -299,3 +313,99 @@ input[type="date"], [type='text'] {
     cursor: pointer;
     border-radius: 3px;
 }
+
+/* Контейнер для модального окна */
+#historyModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Контейнер для истории заказов */
+#historyContent {
+    background-color: transparent;
+    margin: auto;
+    padding: 5px;
+    /* Уменьшено для сокращения расстояния */
+    width: 95%;
+    /* Занимает почти всю ширину окна */
+    max-width: 800px;
+    /* Максимальная ширина для более крупных экранов */
+}
+
+/* Стили для каждого блока заказа */
+.order-block {
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Более полупрозрачный белый фон */
+    margin-bottom: 10px;
+    /* Уменьшено расстояние между блоками */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(230, 230, 230, 0.3);
+    /* Более полупрозрачная граница */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* Занимает всю ширину модального окна */
+    box-sizing: border-box;
+    /* Учтена граница и padding в ширине */
+}
+
+
+/* Заголовок заказа */
+.order-block h3 {
+    font-size: 1.2em;
+    margin: 0 0 5px;
+    /* Уменьшено для сокращения расстояния */
+    color: #ffffff;
+    border-bottom: 2px solid #d9e397;
+    padding-bottom: 5px;
+}
+
+/* Список для категорий продуктов */
+.order-block ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Заголовок категории продуктов */
+.category-header {
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 10px;
+    color: #d9e397;
+    margin-bottom: 10px;
+}
+
+/* Элемент списка продукта, позиционируется по флексу */
+.product-item {
+    display: flex;
+    margin-left: 15px;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.95em;
+    color: #ffffff;
+    padding-left: 0;
+    /* Название товара у левого края */
+}
+
+.product-item::before {
+    content: '';
+}
+
+/* Количество товара, выравнивается по правому краю */
+.product-item .product-quantity {
+    font-weight: bold;
+    margin-left: auto;
+}
+
+
+

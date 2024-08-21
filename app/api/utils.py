@@ -1,3 +1,4 @@
+from sqlalchemy import desc
 from app.api.schemas import ProductCart
 from typing import Dict
 from datetime import datetime
@@ -114,3 +115,47 @@ def get_orders(data):
             return JSONResponse(content={"orders": result})
         except Exception as e:
             return JSONResponse(content={"error": str(e)}, status_code=500)
+
+
+def get_user_orders(user_id):
+    with SessionLocal() as session:
+        try:
+            # Ищем последние 10 заказов для заданного пользователя
+            orders = (session.query(Orders)
+                      .filter(Orders.CustomerId == user_id)
+                      .order_by(desc(Orders.DeliveryDate))
+                      .limit(10)
+                      .all())
+
+            if not orders:
+                return JSONResponse(content={"orders": []})
+
+            result = []
+            for order in orders:
+                order_data = {
+                    "id": order.id,
+                    "deliveryDate": order.DeliveryDate.strftime('%Y-%m-%d'),
+                    "categories": {}
+                }
+
+                for item in order.order_items:
+                    product = session.query(Product).filter(Product.id == item.ProductId).first()
+                    category = session.query(Category).filter(Category.id == product.category_id).first()
+
+                    # Заполняем товары по категориям
+                    if category.name not in order_data['categories']:
+                        order_data['categories'][category.name] = []
+
+                    order_data['categories'][category.name].append({
+                        "id": product.id,
+                        "productName": product.name,
+                        "quantity": item.Quantity,
+                        "unit": "кг."
+                    })
+
+                result.append(order_data)
+
+            return JSONResponse(content={"orders": result})
+        except Exception as e:
+            return JSONResponse(content={"error": str(e)}, status_code=500)
+

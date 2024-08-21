@@ -19,3 +19,6 @@ class Cart(BaseModel):
 
 class DateRequest(BaseModel):
     date: date
+
+class UserId(BaseModel):
+    user_id: int

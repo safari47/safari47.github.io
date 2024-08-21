@@ -1,8 +1,9 @@
-const user_id = '123456789'
+const modal = document.getElementById('cartModal');
+const historyModal = document.getElementById('historyModal');
+const closeBtn = document.getElementsByClassName('close');
+const user_id = '123'
 let cart = {};
 const cartButton = document.querySelector('.cart-button');
-const modal = document.getElementById('cartModal');
-const closeBtn = document.getElementsByClassName('close')[0];
 const checkoutButton = document.getElementById('checkoutButton');
 
 // Функция для создания карточек товаров из JSON
@@ -261,11 +262,88 @@ async function success_order() {
     }
 }
 
+async function order_history() {
+    try {
+        const response = await fetch('/api/user_orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: user_id
+            })
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            displayHistory(responseData); // Передаем данные из ответа в вашу функцию
+        } else {
+            console.error('Ошибка загрузки данных истории заказов');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+    }
+}
+
+function displayHistory(data) {
+    const historyContent = document.getElementById('historyContent');
+    historyContent.innerHTML = '';
+
+    if (data.orders.length === 0) {
+        historyContent.textContent = 'Заказы не найдены.';
+        return;
+    }
+
+    data.orders.forEach((order) => {
+        const orderBlock = document.createElement('div');
+        orderBlock.className = 'order-block';
+
+        const orderHeader = document.createElement('h3');
+        orderHeader.textContent = `Заказ № ${order.id} от ${order.deliveryDate}`;
+        orderBlock.appendChild(orderHeader);
+
+        const categoriesList = document.createElement('ul');
+
+        for (const category in order.categories) {
+            const categoryHeader = document.createElement('li');
+            categoryHeader.className = 'category-header';
+            categoryHeader.textContent = category;
+            const productsList = document.createElement('ul');
+
+            order.categories[category].forEach((product) => {
+                const productItem = document.createElement('li');
+                productItem.className = 'product-item';
+                productItem.innerHTML = `<span>${product.productName}</span> <span class="product-quantity">${product.quantity} ${product.unit}</span>`;
+                productsList.appendChild(productItem);
+            });
+
+            categoryHeader.appendChild(productsList);
+            categoriesList.appendChild(categoryHeader);
+        }
+
+        orderBlock.appendChild(categoriesList);
+        historyContent.appendChild(orderBlock);
+    });
+
+    const historyModal = document.getElementById('historyModal');
+    historyModal.style.display = 'flex';
+}
 
 
-// Обработчик для ссылки "История заказов"
-document.getElementById('orderHistoryLink').addEventListener('click', function (e) {
-    e.preventDefault();
-    alert('Здесь будет отображаться история заказов пользователя.');
-});
 
+
+for (let btn of closeBtn) {
+    btn.onclick = function () {
+        modal.style.display = "none";
+        historyModal.style.display = "none";
+    };
+}
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    if (event.target == historyModal) {
+        historyModal.style.display = "none";
+    }
+}
