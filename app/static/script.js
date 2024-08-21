@@ -19,6 +19,7 @@ function createProductCards(products) {
             <img src="${product.image}" alt="${product.description}" class="product-image">
             <div class="product-info">
                 <div class="product-name" id=${product.id}>${product.name}</div>
+                <span class="product-description">${product.description}</span>
                 <button class="add-to-cart">В корзину</button>
             </div>
         `;
