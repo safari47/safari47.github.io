@@ -1,0 +1,13 @@
+fastapi
+datetime
+typing
+pydantic
+datetime
+asyncio
+logging
+sys
+time
+dotenv
+os
+aiogram
+sqlalchemy
