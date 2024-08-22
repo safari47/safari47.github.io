@@ -5,6 +5,26 @@ const user_id = '123'
 let cart = {};
 const cartButton = document.querySelector('.cart-button');
 const checkoutButton = document.getElementById('checkoutButton');
+let userID;
+
+// window.Telegram.WebApp.ready(function () {
+//     if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+//         const userFullName = window.Telegram.WebApp.initDataUnsafe.user.first_name + ' ' + window.Telegram.WebApp.initDataUnsafe.user.last_name;
+//         const userAvatar = window.Telegram.WebApp.initDataUnsafe.user.photo_url;
+//         const userID = window.Telegram.WebApp.initDataUnsafe.user.id;
+
+//         // Вставка имени пользователя
+//         const userNameElement = document.getElementById('userName');
+//         userNameElement.textContent = userFullName;
+
+//         // Вставка фотографии пользователя
+//         const userAvatarElement = document.getElementById('userAvatar');
+//         userAvatarElement.src = userAvatar;
+//     } else {
+//         console.error("Не удалось получить данные пользователя из initDataUnsafe.");
+//     }
+// });
+
 
 // Функция для создания карточек товаров из JSON
 function createProductCards(products) {
@@ -348,3 +368,11 @@ window.onclick = function (event) {
         historyModal.style.display = "none";
     }
 }
+
+document.getElementById('closeButton').addEventListener('click', function () {
+    if (window.Telegram.WebApp.close) {
+        window.Telegram.WebApp.close();
+    } else {
+        console.error('WebApp функции Telegram неинициализированы.');
+    }
+});
