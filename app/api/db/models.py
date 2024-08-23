@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
-from app.api.db.database import Base, engine
+from sqlalchemy.orm import relationship, DeclarativeBase
 
+
+class Base(DeclarativeBase):
+    pass
 
 class Category(Base):
     __tablename__ = "categories"
@@ -47,6 +49,3 @@ class OrderItems(Base):
 
     order = relationship("Orders", back_populates="order_items")
     product = relationship("Product", back_populates="order_items")
-
-
-Base.metadata.create_all(bind=engine)

@@ -5,7 +5,6 @@ from app.api.utils import generate_message, add_order, get_orders, get_user_orde
 from app.api.db.database import SessionLocal
 from app.api.db.models import Product
 from datetime import datetime
-from app.api.db.database import SessionLocal
 from app.api.tg_bot import send_message_to_channel
 
 router = APIRouter(prefix="", tags=["API"])
