@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-
+import uvicorn
 from app.api.router import router as router_api
 from app.api.db import models, product_add
 from app.api.db.database import engine
