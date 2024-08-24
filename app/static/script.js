@@ -5,7 +5,22 @@ const user_id = '123'
 let cart = {};
 const cartButton = document.querySelector('.cart-button');
 const checkoutButton = document.getElementById('checkoutButton');
+const modalsucess = document.getElementById('successMdl');
+const orderNumberSpan = document.getElementById('orderNumber');
 let userID;
+
+document.addEventListener("DOMContentLoaded", function () {
+    window.onload = function () {
+        const preloader = document.getElementById('preloader');
+        const content = document.getElementById('content');
+
+        // Скрываем спиннер
+        preloader.style.display = 'none';
+
+        // Показываем контент
+        content.style.display = 'block';
+    };
+});
 
 // window.Telegram.WebApp.ready(function () {
 //     if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
@@ -245,7 +260,25 @@ function updateProductCard(productKey, quantity) {
     }
 }
 
+function showModal(orderNumber) {
+    orderNumberSpan.textContent = orderNumber;
+    modal.style.display = "none";
+    cartButton.style.display = "none";
+    modalsucess.style.display = 'block';
+}
+
+function closeModal() {
+    if (window.Telegram.WebApp.close) {
+        window.Telegram.WebApp.close();
+    } else {
+        console.error('WebApp функции Telegram неинициализированы.');
+    }
+}
+
 async function success_order() {
+    const orderButton = document.getElementById('checkoutButton');
+    const loadingIndicator = document.getElementById('loading-bar-spinner');
+
     const order_date = document.getElementById('date_order').value;
     const name_organization = String(document.getElementById('organization_name').value).trim();
 
@@ -254,6 +287,10 @@ async function success_order() {
         alert('Название организации не может быть пустым!');
         return; // Прекращаем выполнение функции, если name_organization пустое
     }
+
+    // Скрываем кнопку и показываем спиннер
+    orderButton.style.display = 'none';
+    loadingIndicator.style.display = 'block';
 
     try {
         const response = await fetch('/api', {
@@ -272,7 +309,8 @@ async function success_order() {
         if (response.ok) {
             const responseData = await response.json();
             console.log('Order success:', responseData);
-            alert(`Ваш заявка успешно принята! Номер вашей заявки: №${responseData.message}`);
+            orderNumber = responseData.message
+            showModal(orderNumber)
         } else {
             console.error('Order failed:', response.status, response.statusText);
             alert(`При отправке заказа произошла ошибка: ${response.statusText}`);
@@ -280,8 +318,13 @@ async function success_order() {
     } catch (error) {
         console.error('Ошибка при отправке заказа:', error);
         alert(`При отправке заказа произошла ошибка: ${error.message}`);
+    } finally {
+        // Включаем кнопку и скрываем спиннер независимо от результата
+        orderButton.style.display = 'block';
+        loadingIndicator.style.display = 'none';
     }
 }
+
 
 async function order_history() {
     try {
@@ -350,9 +393,6 @@ function displayHistory(data) {
     historyModal.style.display = 'flex';
 }
 
-
-
-
 for (let btn of closeBtn) {
     btn.onclick = function () {
         modal.style.display = "none";
@@ -369,10 +409,3 @@ window.onclick = function (event) {
     }
 }
 
-document.getElementById('closeButton').addEventListener('click', function () {
-    if (window.Telegram.WebApp.close) {
-        window.Telegram.WebApp.close();
-    } else {
-        console.error('WebApp функции Telegram неинициализированы.');
-    }
-});

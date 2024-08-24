@@ -3,8 +3,8 @@ from app.api.db.models import Category, Product
 
 # Список категорий
 categories_data = [
-    {"name": "Очищенные овощи"},
-    {"name": "Нечищенные овощи"},
+    {"name": "Чищенные"},
+    {"name": "Нечищенные"},
 ]
 
 # Список продуктов
