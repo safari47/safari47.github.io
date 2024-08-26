@@ -1,25 +1,41 @@
-let tg = window.Telegram.WebApp;
-const userFullName = tg.initDataUnsafe.user.first_name + ' ' + tg.initDataUnsafe.user.last_name;
-const userAvatar = tg.initDataUnsafe.user.photo_url;
-userID = tg.initDataUnsafe.user.id;
-
-// Вставка имени пользователя
-const userNameElement = document.getElementById('userName');
-userNameElement.textContent = userFullName;
-
-// Вставка фотографии пользователя
-const userAvatarElement = document.getElementById('userAvatar');
-userAvatarElement.src = userAvatar;
-
+let userID;
 const modal = document.getElementById('cartModal');
 const historyModal = document.getElementById('historyModal');
 const closeBtn = document.getElementsByClassName('close');
-const userID = '';
 let cart = {};
 const cartButton = document.querySelector('.cart-button');
 const checkoutButton = document.getElementById('checkoutButton');
 const modalsucess = document.getElementById('successMdl');
 const orderNumberSpan = document.getElementById('orderNumber');
+
+function fillUserInfo() {
+    // Проверяем наличие обязательных объектов и свойств
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
+        let tg = window.Telegram.WebApp;
+        const userFirstName = tg.initDataUnsafe.user.first_name; // Только имя
+        const userAvatar = tg.initDataUnsafe.user.photo_url;
+        userID = tg.initDataUnsafe.user.id; // Устанавливаем глобальный userID
+
+        // Находим элементы в DOM
+        const userNameElement = document.getElementById('userName');
+        const userAvatarElement = document.querySelector('.user-avatar');
+
+        // Проверяем существование элемента перед манипуляцией
+        if (userNameElement) {
+            userNameElement.textContent = userFirstName;
+        } else {
+            console.error('Element with id "userName" not found.');
+        }
+
+        if (userAvatarElement) {
+            userAvatarElement.src = userAvatar;
+        } else {
+            console.error('Element with class "user-avatar" not found.');
+        }
+    } else {
+        console.error('Telegram WebApp data not available.');
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     window.onload = function () {
@@ -32,12 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Показываем контент
         content.style.display = 'block';
     };
+    fillUserInfo();
 });
-
-
-
-
-
 
 // Функция для создания карточек товаров из JSON
 function createProductCards(products) {
