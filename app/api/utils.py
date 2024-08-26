@@ -9,7 +9,7 @@ from time import time
 from fastapi.responses import JSONResponse
 from datetime import datetime
 
-def generate_message(name_organization: str, order_date: str, products: Dict[str, ProductCart], user_id: int, order_datetime: datetime) -> str:
+def generate_message(name_organization: str, order_date: str, products: Dict[str, ProductCart]) -> str:
     # Создаем два списка продуктов по категориям
     peeled_products = []
     unpeeled_products = []
@@ -22,8 +22,6 @@ def generate_message(name_organization: str, order_date: str, products: Dict[str
     # Формируем сообщение
     message_lines = [
         f"Наименование организации: {name_organization}",
-        f"Имя пользователя: {user_id}",
-        f"Время поступления заявки: {order_datetime}",
         f"Дата поставки заявки: {order_date.strftime("%d-%m-%Y")}",
         "Овощи в заказе:",
     ]

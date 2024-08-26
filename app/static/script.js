@@ -1,4 +1,5 @@
 let userID;
+let tg;
 const modal = document.getElementById('cartModal');
 const historyModal = document.getElementById('historyModal');
 const closeBtn = document.getElementsByClassName('close');
@@ -11,26 +12,18 @@ const orderNumberSpan = document.getElementById('orderNumber');
 function fillUserInfo() {
     // Проверяем наличие обязательных объектов и свойств
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
-        let tg = window.Telegram.WebApp;
+        tg = window.Telegram.WebApp;
         const userFirstName = tg.initDataUnsafe.user.first_name; // Только имя
-        const userAvatar = tg.initDataUnsafe.user.photo_url;
         userID = tg.initDataUnsafe.user.id; // Устанавливаем глобальный userID
 
         // Находим элементы в DOM
         const userNameElement = document.getElementById('userName');
-        const userAvatarElement = document.querySelector('.user-avatar');
 
         // Проверяем существование элемента перед манипуляцией
         if (userNameElement) {
             userNameElement.textContent = userFirstName;
         } else {
             console.error('Element with id "userName" not found.');
-        }
-
-        if (userAvatarElement) {
-            userAvatarElement.src = userAvatar;
-        } else {
-            console.error('Element with class "user-avatar" not found.');
         }
     } else {
         console.error('Telegram WebApp data not available.');
@@ -340,7 +333,7 @@ async function order_history() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                user_id: user_id
+                user_id: userID
             })
         });
 

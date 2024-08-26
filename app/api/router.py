@@ -48,7 +48,7 @@ async def create_order(cart: Cart):
     user_id = cart.user_id
     order_datetime = (datetime.now()).strftime("%Y-%m-%d %H:%M")
     message = generate_message(
-        name_organization, order_date, products, user_id, order_datetime
+        name_organization, order_date, products
     )
     try:
         succes_order = add_order(
