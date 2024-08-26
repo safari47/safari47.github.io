@@ -40,7 +40,7 @@ async def command_start_handler(message: Message) -> None:
 
 @dp.message(Command("history_orders"))
 async def command_start_handler(message: Message) -> None:
-    markup = InlineKeyboardMarkup(
+    markup_order = InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
@@ -51,7 +51,7 @@ async def command_start_handler(message: Message) -> None:
         ]
     )
     await message.answer(
-        "Здесь можно глянуть все заявки по дням!", reply_markup=markup
+        "Здесь можно глянуть все заявки по дням!", reply_markup=markup_order
     )
 
 async def send_message_to_channel(message) -> None:
