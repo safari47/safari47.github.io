@@ -3,22 +3,20 @@ import logging
 import sys
 from dotenv import load_dotenv
 import os
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, Router
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.filters import Command
+from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from aiogram.fsm.storage.memory import MemoryStorage
 
 load_dotenv()
 
 TOKEN = os.getenv("TOKEN")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
-
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-
-dp = Dispatcher()
-
+dp = Dispatcher(storage=MemoryStorage())
 
 @dp.message(Command("start"))
 async def command_start_handler(message: Message) -> None:
@@ -35,7 +33,6 @@ async def command_start_handler(message: Message) -> None:
     await message.answer(
         "По кнопке ниже вы можете оформить заказ!", reply_markup=markup
     )
-
 
 @dp.message(Command("orders"))
 async def command_orders_handler(message: Message) -> None:
