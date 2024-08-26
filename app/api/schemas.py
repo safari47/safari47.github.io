@@ -15,7 +15,7 @@ class Cart(BaseModel):
     products: Dict[str, ProductCart]  # Словарь продуктов
     date: date
     organization: str
-    user_id: str
+    user_id: int
 
 class DateRequest(BaseModel):
     date: date
