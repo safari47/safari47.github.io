@@ -1,13 +1,13 @@
+let tg = window.Telegram.WebApp;
 const modal = document.getElementById('cartModal');
 const historyModal = document.getElementById('historyModal');
 const closeBtn = document.getElementsByClassName('close');
-const user_id = '123'
+const userID='';
 let cart = {};
 const cartButton = document.querySelector('.cart-button');
 const checkoutButton = document.getElementById('checkoutButton');
 const modalsucess = document.getElementById('successMdl');
 const orderNumberSpan = document.getElementById('orderNumber');
-let userID;
 
 document.addEventListener("DOMContentLoaded", function () {
     window.onload = function () {
@@ -22,23 +22,23 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-// window.Telegram.WebApp.ready(function () {
-//     if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-//         const userFullName = window.Telegram.WebApp.initDataUnsafe.user.first_name + ' ' + window.Telegram.WebApp.initDataUnsafe.user.last_name;
-//         const userAvatar = window.Telegram.WebApp.initDataUnsafe.user.photo_url;
-//         const userID = window.Telegram.WebApp.initDataUnsafe.user.id;
+tg.ready(function () {
+    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const userFullName = tg.initDataUnsafe.user.first_name + ' ' + tg.initDataUnsafe.user.last_name;
+        const userAvatar = tg.initDataUnsafe.user.photo_url;
+        userID = tg.initDataUnsafe.user.id;
 
-//         // Вставка имени пользователя
-//         const userNameElement = document.getElementById('userName');
-//         userNameElement.textContent = userFullName;
+        // Вставка имени пользователя
+        const userNameElement = document.getElementById('userName');
+        userNameElement.textContent = userFullName;
 
-//         // Вставка фотографии пользователя
-//         const userAvatarElement = document.getElementById('userAvatar');
-//         userAvatarElement.src = userAvatar;
-//     } else {
-//         console.error("Не удалось получить данные пользователя из initDataUnsafe.");
-//     }
-// });
+        // Вставка фотографии пользователя
+        const userAvatarElement = document.getElementById('userAvatar');
+        userAvatarElement.src = userAvatar;
+    } else {
+        console.error("Не удалось получить данные пользователя из initDataUnsafe.");
+    }
+});
 
 
 // Функция для создания карточек товаров из JSON
@@ -268,11 +268,7 @@ function showModal(orderNumber) {
 }
 
 function closeModal() {
-    if (window.Telegram.WebApp.close) {
-        window.Telegram.WebApp.close();
-    } else {
-        console.error('WebApp функции Telegram неинициализированы.');
-    }
+    tg.close()
 }
 
 async function success_order() {
@@ -302,7 +298,7 @@ async function success_order() {
                 products: cart,
                 date: order_date,
                 organization: name_organization,
-                user_id: user_id
+                user_id: userID
             })
         });
 

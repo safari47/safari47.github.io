@@ -29,7 +29,7 @@ async def command_start_handler(message: Message) -> None:
             [
                 InlineKeyboardButton(
                     text="Оформить заказ",
-                    web_app=WebAppInfo(url=f"https://safari47.github.io"),
+                    web_app=WebAppInfo(url=f"https://овощиоптом39.рф"),
                 )
             ]
         ]
@@ -38,6 +38,21 @@ async def command_start_handler(message: Message) -> None:
         "По кнопке ниже вы можете оформить заказ!", reply_markup=markup
     )
 
+@dp.message(Command("history_oders"))
+async def command_start_handler(message: Message) -> None:
+    markup = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="История заявок",
+                    web_app=WebAppInfo(url=f"https://овощиоптом39.рф/orders"),
+                )
+            ]
+        ]
+    )
+    await message.answer(
+        "Здесь можно глянуть все заявки по дням!", reply_markup=markup
+    )
 
 async def send_message_to_channel(message) -> None:
     await bot.send_message(CHANNEL_ID, message)
