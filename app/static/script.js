@@ -1,8 +1,20 @@
 let tg = window.Telegram.WebApp;
+const userFullName = tg.initDataUnsafe.user.first_name + ' ' + tg.initDataUnsafe.user.last_name;
+const userAvatar = tg.initDataUnsafe.user.photo_url;
+userID = tg.initDataUnsafe.user.id;
+
+// Вставка имени пользователя
+const userNameElement = document.getElementById('userName');
+userNameElement.textContent = userFullName;
+
+// Вставка фотографии пользователя
+const userAvatarElement = document.getElementById('userAvatar');
+userAvatarElement.src = userAvatar;
+
 const modal = document.getElementById('cartModal');
 const historyModal = document.getElementById('historyModal');
 const closeBtn = document.getElementsByClassName('close');
-const userID='';
+const userID = '';
 let cart = {};
 const cartButton = document.querySelector('.cart-button');
 const checkoutButton = document.getElementById('checkoutButton');
@@ -22,23 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-tg.ready(function () {
-    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        const userFullName = tg.initDataUnsafe.user.first_name + ' ' + tg.initDataUnsafe.user.last_name;
-        const userAvatar = tg.initDataUnsafe.user.photo_url;
-        userID = tg.initDataUnsafe.user.id;
 
-        // Вставка имени пользователя
-        const userNameElement = document.getElementById('userName');
-        userNameElement.textContent = userFullName;
 
-        // Вставка фотографии пользователя
-        const userAvatarElement = document.getElementById('userAvatar');
-        userAvatarElement.src = userAvatar;
-    } else {
-        console.error("Не удалось получить данные пользователя из initDataUnsafe.");
-    }
-});
+
 
 
 // Функция для создания карточек товаров из JSON

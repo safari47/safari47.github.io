@@ -38,7 +38,7 @@ async def command_start_handler(message: Message) -> None:
         "По кнопке ниже вы можете оформить заказ!", reply_markup=markup
     )
 
-@dp.message(Command("history_oders"))
+@dp.message(Command("history_orders"))
 async def command_start_handler(message: Message) -> None:
     markup = InlineKeyboardMarkup(
         inline_keyboard=[
