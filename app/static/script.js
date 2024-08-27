@@ -269,6 +269,12 @@ function showModal(orderNumber) {
     cartButton.style.display = "none";
     modalsucess.style.display = 'block';
 }
+function handleKeyDown(event) {
+    if (event.key === 'Enter') {  // Проверяем нажатие клавиши Enter
+        event.preventDefault();    // Предотвращаем стандартное поведение (отправка формы)
+        document.activeElement.blur();  // Снимаем фокус с текущего элемента, убирая клавиатуру
+    }
+}
 
 function closeModal() {
     tg.close()

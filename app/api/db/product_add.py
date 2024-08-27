@@ -9,14 +9,14 @@ categories_data = [
 
 # Список продуктов
 products_data = [
-    {"name": "Картофель", "image": "/static/Image/8.png", "description": "", "category": 1},
-    {"name": "Черри", "image": "/static/Image/9.png", "description": "", "category": 1},
-    {"name": "Дольки", "image": "/static/Image/5.png", "description": "", "category": 1},
-    {"name": "Лук красный", "image": "/static/Image/1.png", "description": "", "category": 1},
-    {"name": "Свекла", "image": "/static/Image/3.png", "description": "", "category": 1},
-    {"name": "Морковь", "image": "/static/Image/4.png", "description": "", "category": 1},
-    {"name": "Чеснок", "image": "/static/Image/6.png", "description": "", "category": 1},
-    {"name": "Лук репчатый", "image": "/static/Image/7.png", "description": "", "category": 1},
+    {"name": "Картофель", "image": "/static/Image/8.png", "description": "5кг -> 1 уп.", "category": 1},
+    {"name": "Черри", "image": "/static/Image/9.png", "description": "5кг -> 1 уп.", "category": 1},
+    {"name": "Дольки", "image": "/static/Image/5.png", "description": "5кг -> 1 уп.", "category": 1},
+    {"name": "Лук красный", "image": "/static/Image/1.png", "description": "5кг -> 1 уп.", "category": 1},
+    {"name": "Свекла", "image": "/static/Image/3.png", "description": "5кг -> 1 уп.", "category": 1},
+    {"name": "Морковь", "image": "/static/Image/4.png", "description": "5кг -> 1 уп.", "category": 1},
+    {"name": "Чеснок", "image": "/static/Image/6.png", "description": "0,5кг -> 1 уп.", "category": 1},
+    {"name": "Лук репчатый", "image": "/static/Image/7.png", "description": "5кг -> 1 уп.", "category": 1},
     
     {"name": "Чеснок", "image": "/static/Image/2.png", "description": "", "category": 2},
     {"name": "Картофель", "image": "/static/Image/10.png", "description": "", "category": 2},

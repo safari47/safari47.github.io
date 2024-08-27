@@ -45,7 +45,7 @@
                 <h4> Дата доставки </h4>
                 <input type="date" id="date_order">
                 <h4> Наименование организации </h4>
-                <input type="text" id="organization_name">
+                <input type="text" id="organization_name" onkeydown="handleKeyDown(event)">
                 <button onclick="success_order()" id="checkoutButton" class="checkout-button">Оформить заказ</button>
             </div>
         </div>
