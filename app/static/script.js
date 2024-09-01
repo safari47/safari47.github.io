@@ -15,13 +15,16 @@ function fillUserInfo() {
         tg = window.Telegram.WebApp;
         const userFirstName = tg.initDataUnsafe.user.first_name; // Только имя
         userID = tg.initDataUnsafe.user.id; // Устанавливаем глобальный userID
+        const userAvatar = tg.initDataUnsafe.user.photo_url;
 
         // Находим элементы в DOM
         const userNameElement = document.getElementById('userName');
+        const userAvatarElement = document.querySelector('.user-avatar');
 
         // Проверяем существование элемента перед манипуляцией
         if (userNameElement) {
             userNameElement.textContent = userFirstName;
+            userAvatarElement.src = userAvatar;
         } else {
             console.error('Element with id "userName" not found.');
         }
