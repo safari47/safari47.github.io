@@ -195,11 +195,15 @@ function updateCartModal() {
                 <img src="${item.image}" alt="${item.name}">
                 <div class="cart-item-info">
                     <div class="cart-item-name">${item.name}</div>
-                    <input type="number" class="cart-quantity-input" value="${item.quantity}" min="0" onchange="updateQuantity('${productKey}', this.value)">
+                    <div class="cart-quantity-control">
+                        <input type="number" class="cart-quantity-input" value="${item.quantity}" min="0" onchange="updateQuantity('${productKey}', this.value)">
+                        <span class="cart-quantity-label">кг.</span>
+                    </div>
                 </div>
             </div>
         `);
     }
+    
 
     for (const category of Object.values(categories)) {
         if (category.items.length > 0) {

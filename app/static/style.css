@@ -207,6 +207,12 @@ h2 {
 
 .cart-item-name {
     font-weight: bold;
+    flex-grow: 1;
+}
+
+.cart-quantity-control {
+    display: flex;
+    align-items: center;
 }
 
 .cart-quantity-input {
@@ -217,6 +223,11 @@ h2 {
     border: 1px solid #4CAF50;
     border-radius: 3px;
     padding: 5px;
+}
+
+.cart-quantity-label {
+    margin-left: 5px;
+    /* Дополнительные стили как цвет, размер шрифта и т.д. */
 }
 
 .cart-category {
